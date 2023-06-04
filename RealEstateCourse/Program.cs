@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RealEstateCourse.Data;
+using RealEstateCourse.Models;
 
 namespace RealEstateCourse
 {
@@ -11,14 +12,20 @@ namespace RealEstateCourse
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            var connectionString = builder.Configuration.GetConnectionString("SqlConnection") ?? throw new InvalidOperationException("Connection string 'SqlConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(connectionString)
+                );
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<Users>(/*options => options.SignIn.RequireConfirmedAccount = true*/)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             builder.Services.AddRazorPages();
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 
@@ -38,6 +45,7 @@ namespace RealEstateCourse
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.MapDefaultControllerRoute();
 
             app.UseAuthorization();
 
