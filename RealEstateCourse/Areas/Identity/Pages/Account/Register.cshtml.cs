@@ -43,6 +43,7 @@ namespace RealEstateCourse.Areas.Identity.Pages.Account
         {
             [Required]
             [Display(Name = "PhoneNumber")]
+            [MaxLength(11, ErrorMessage = "شماره همراه نمی تواند بیشتر از 11 رقم باشد")]
             public string PhoneNumber { get; set; }
 
             [Required]

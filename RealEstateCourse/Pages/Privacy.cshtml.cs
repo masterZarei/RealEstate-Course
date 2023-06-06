@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace RealEstateCourse.Pages
 {
-    [Authorize]
+    [Authorize(Roles = SD.AdminEndUser)]
     public class PrivacyModel : PageModel
     {
         private readonly ILogger<PrivacyModel> _logger;

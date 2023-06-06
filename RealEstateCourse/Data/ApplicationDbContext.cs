@@ -12,5 +12,6 @@ namespace RealEstateCourse.Data
         }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Estate> Estates { get; set; }
     }
 }
